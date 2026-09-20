@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/logo-full-light.png" />
+    <title>Admin Login — KI-VIX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/admin/admin.css" />
+    <link rel="stylesheet" href="/loading.css" />
+  </head>
+  <body class="admin-body">
+    <div class="admin-login-wrap">
+      <div class="admin-login-card">
+        <div class="logo">
+          <img src="/assets/logo-full-dark.png" alt="KI-VIX" class="mark-img" />
+          <span class="sub">ADMIN PANEL</span>
+        </div>
+        <h2>Sign in to manage KI-VIX</h2>
+
+        <div class="admin-login-error" data-login-error></div>
+
+        <form data-login-form>
+          <div class="field">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="you@company.com"
+              required
+            />
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/loading.js"></script>
+    <script src="/data.js"></script>
+    <script>
+      const form = document.querySelector("[data-login-form]");
+      const errorBox = document.querySelector("[data-login-error]");
+      enablePasswordToggles(document);
+
+      // Already logged in? Skip straight to the dashboard — but only
+      // once the saved token is actually confirmed valid with the
+      // server. Blindly trusting "a token exists in localStorage" was
+      // the bug: if the token had gone stale (or the server hiccuped)
+      // this page would redirect to /admin/index.html, that page would
+      // fail to validate it and bounce straight back here, and this
+      // page would send it away again — an endless redirect loop that
+      // looked like the page "kept refreshing itself". Awaiting a real
+      // server check here breaks that loop for good.
+      (async function () {
+        if (!getAdminToken()) return;
+        const admin = await bootstrapAdminSession();
+        if (admin) {
+          window.location.href = "/admin/index.html";
+        }
+      })();
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const email = fd.get("email").trim();
+        const password = fd.get("password");
+
+        try {
+          await adminLogin(email, password);
+          window.location.href = "/admin/index.html";
+        } catch (err) {
+          errorBox.textContent = err.message || "Incorrect email or password.";
+          errorBox.classList.add("show");
+        }
+      });
+    </script>
+  </body>
+</html>

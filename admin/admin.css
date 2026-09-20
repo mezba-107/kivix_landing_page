@@ -1,0 +1,1352 @@
+/* ===================================================
+   KI-VIX ADMIN — layout on top of the storefront's
+   design tokens (colors/fonts come from /style.css,
+   which every admin page loads first).
+=================================================== */
+
+body.admin-body {
+  background: var(--stone);
+}
+
+/* ---------- shell: sidebar + main ---------- */
+/* ---------- shell: sidebar + main ---------- */
+.admin-shell {
+  display: flex;
+}
+.admin-sidebar {
+  width: 240px;
+  flex: none;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 40;
+}
+.admin-sidebar .logo {
+  padding: 0 22px 26px;
+}
+.admin-sidebar .logo .mark-img {
+  height: 50px;
+  width: auto;
+  display: block;
+  /* margin-left: 24px; */
+}
+.admin-sidebar .logo .sub {
+  color: #8a8a8a;
+}
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 0 12px;
+  flex: 1;
+}
+.admin-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  color: #b3b3b3;
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.admin-nav a svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+.admin-nav a:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--paper);
+}
+.admin-nav a.active {
+  background: var(--red);
+  color: var(--paper);
+}
+.admin-nav-badge {
+  margin-left: auto;
+  background: var(--red);
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.admin-nav a.active .admin-nav-badge {
+  background: var(--paper);
+  color: var(--red);
+}
+.admin-nav-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 10px 14px;
+}
+.admin-sidebar-foot {
+  padding: 14px 22px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 14px;
+}
+.admin-sidebar-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.admin-sidebar-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  overflow: visible;
+}
+.admin-sidebar-avatar > span {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-sidebar-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Small always-visible camera badge — makes it obvious the avatar is
+   clickable/changeable without needing to discover it by hovering. */
+.admin-sidebar-avatar::before {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 2px solid var(--ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' width='9' height='9'%3E%3Cpath d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z'/%3E%3Ccircle cx='12' cy='13' r='4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 9px;
+}
+.admin-sidebar-avatar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' width='14' height='14'%3E%3Cpath d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z'/%3E%3Ccircle cx='12' cy='13' r='4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.admin-sidebar-avatar:hover::after {
+  opacity: 1;
+}
+.admin-sidebar-user-info {
+  min-width: 0;
+}
+.admin-sidebar-user-info .name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--paper);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.admin-sidebar-user-info .role {
+  font-size: 11px;
+  color: #8a8a8a;
+}
+.admin-logout-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: var(--paper);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.admin-logout-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+.admin-logout-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.admin-main {
+  flex: 1;
+  min-width: 0;
+  margin-left: 240px;
+}
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 32px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.admin-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+.admin-topbar h1 {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.admin-topbar .sub {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+.admin-sidebar-toggle {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+.admin-sidebar-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.admin-content {
+  padding: 26px 32px 40px;
+}
+
+/* ---------- overlay for mobile sidebar ---------- */
+.admin-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 11, 12, 0.5);
+  z-index: 35;
+}
+.admin-sidebar-overlay.show {
+  display: block;
+}
+
+/* ---------- stat cards ---------- */
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 26px;
+}
+.admin-stat-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+}
+.admin-stat-card .top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.admin-stat-card .icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--stone);
+  color: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-stat-card .icon svg {
+  width: 17px;
+  height: 17px;
+}
+.admin-stat-card .num {
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.admin-stat-card .label {
+  font-size: 12.5px;
+  color: var(--text-2);
+  font-weight: 600;
+}
+
+/* ---------- panels / tables ---------- */
+.admin-panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.admin-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.admin-panel-head h2 {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 700;
+  text-transform: none;
+}
+.admin-search-input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-family: inherit;
+  min-width: 220px;
+}
+.admin-search-input:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.admin-table-wrap {
+  overflow-x: auto;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.admin-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+.admin-table .cell-name {
+  font-weight: 600;
+  color: var(--text);
+}
+.admin-table .cell-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+/* products table — size chips / price / tag stacks */
+.admin-size-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+.admin-size-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--stone, #f4f2ee);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.admin-size-chip small {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--muted);
+  padding-left: 5px;
+  border-left: 1px solid var(--line);
+}
+.admin-size-chip.is-out {
+  color: var(--red-deep);
+  background: #fdf1f1;
+  border-color: rgba(214, 40, 40, 0.3);
+  text-decoration: line-through;
+  font-weight: 500;
+}
+.admin-price-stack,
+.admin-tag-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.admin-tag-stack {
+  align-items: flex-start;
+  gap: 6px;
+}
+.admin-cell-with-thumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.admin-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+}
+.admin-thumb svg {
+  width: 85%;
+  height: auto;
+}
+
+/* ---------- person cell (avatar + name), used in the
+   Admins/Mods and Customers tables ---------- */
+.admin-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+.admin-table tbody tr:hover {
+  background: var(--stone);
+}
+.admin-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.admin-person-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+  flex: none;
+  overflow: hidden;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 0 2px var(--paper),
+    0 0 0 3px var(--line);
+}
+.admin-person-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.admin-person-avatar.role-superadmin {
+  background: #111111;
+}
+.admin-person-avatar.role-admin {
+  background: var(--red-deep);
+}
+.admin-person-avatar.role-mod {
+  background: #0b5fa8;
+}
+.admin-person-info {
+  min-width: 0;
+}
+.admin-person-name {
+  display: block;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- badges ---------- */
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.admin-badge.pending {
+  background: #fff4d8;
+  color: #92660a;
+}
+.admin-badge.approved {
+  background: #e1f0ff;
+  color: #0b5fa8;
+}
+.admin-badge.done {
+  background: #e5f6ec;
+  color: #15803d;
+}
+.admin-badge.cancelled {
+  background: #fbe6e6;
+  color: var(--red-deep);
+}
+.admin-badge.role-superadmin {
+  background: #111111;
+  color: #ffffff;
+}
+.admin-badge.role-admin {
+  background: #fbe6e6;
+  color: var(--red-deep);
+}
+.admin-badge.role-mod {
+  background: #e1f0ff;
+  color: #0b5fa8;
+}
+
+/* ---------- order detail modal ---------- */
+.admin-order-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.admin-order-modal-id {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.admin-order-modal-customer {
+  font-size: 13.5px;
+  color: var(--text-2);
+}
+.admin-order-modal-address {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+.admin-order-modal-note {
+  font-size: 12.5px;
+  color: var(--text-2);
+  background: var(--stone);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-top: 10px;
+}
+
+/* ---------- coupon / loyalty discount tags (Orders) ---------- */
+.admin-discount-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 4px;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  background: #fff4d8;
+  color: #92660a;
+  white-space: nowrap;
+}
+.admin-discount-tag.loyalty {
+  background: #fbe6e6;
+  color: var(--red-deep);
+}
+.admin-order-discount-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff4d8;
+  color: #92660a;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 14px 0;
+}
+.admin-order-discount-banner.loyalty {
+  background: #fbe6e6;
+  color: var(--red-deep);
+}
+.admin-order-discount-banner svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+/* ---------- row action buttons ---------- */
+.admin-row-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.admin-btn-sm {
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--text-2);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.admin-btn-sm:hover {
+  border-color: var(--ink);
+  color: var(--text);
+}
+.admin-btn-sm.approve {
+  color: #15803d;
+  border-color: #bfe6cc;
+}
+.admin-btn-sm.approve:hover {
+  background: #e5f6ec;
+  border-color: #15803d;
+}
+.admin-btn-sm.done {
+  color: #0b5fa8;
+  border-color: #bcdcf7;
+}
+.admin-btn-sm.done:hover {
+  background: #e1f0ff;
+  border-color: #0b5fa8;
+}
+.admin-btn-sm.cancel,
+.admin-btn-sm.danger {
+  color: var(--red-deep);
+  border-color: #f3c3c3;
+}
+.admin-btn-sm.cancel:hover,
+.admin-btn-sm.danger:hover {
+  background: #fbe6e6;
+  border-color: var(--red-deep);
+}
+
+.admin-empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.admin-empty svg {
+  width: 44px;
+  height: 44px;
+  color: var(--line);
+  margin: 0 auto 14px;
+}
+
+/* ---------- modal (add / edit forms) ---------- */
+.admin-modal {
+  width: 560px;
+  max-width: 92vw;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-lift);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.admin-modal h3 {
+  font-size: 19px;
+  margin-bottom: 20px;
+}
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.admin-form-grid .field-full {
+  grid-column: 1 / -1;
+}
+.admin-form-grid .field {
+  margin-bottom: 0;
+}
+.admin-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 22px;
+}
+
+/* ---------- customer detail modal ---------- */
+.admin-modal.admin-customer-modal {
+  width: 620px;
+}
+.admin-customer-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.admin-customer-modal-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  flex: none;
+  overflow: hidden;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 3px var(--stone);
+}
+.admin-customer-modal-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.admin-customer-modal-head h3 {
+  margin-bottom: 6px;
+}
+.admin-customer-modal-headline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.admin-customer-modal-id {
+  font-size: 12.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.admin-customer-detail-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.admin-customer-detail-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background: var(--stone);
+  border-radius: var(--radius-sm);
+}
+.admin-customer-detail-meta-item span {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 700;
+}
+.admin-customer-detail-meta-item strong {
+  font-size: 13.5px;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+.admin-customer-detail-subhead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  margin: 18px 0 10px;
+}
+.admin-customer-detail-subhead svg {
+  width: 15px;
+  height: 15px;
+  color: var(--muted);
+}
+.admin-customer-detail-addresses {
+  display: grid;
+  gap: 10px;
+}
+.admin-customer-detail-address {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.admin-customer-detail-orders {
+  display: grid;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.admin-customer-detail-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  transition: border-color 0.15s ease;
+}
+.admin-customer-detail-order:hover {
+  border-color: var(--muted);
+}
+.admin-customer-detail-order .cell-sub {
+  display: block;
+  margin-top: 2px;
+}
+.admin-color-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.admin-color-row input[type="color"] {
+  width: 44px;
+  height: 40px;
+  padding: 2px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+}
+.admin-color-row input[type="text"] {
+  flex: 1;
+}
+.admin-role-select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-family: inherit;
+  background: var(--paper);
+}
+.admin-role-select-sm {
+  padding: 7px 10px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-family: inherit;
+  background: var(--paper);
+  font-weight: 600;
+}
+
+/* ---------- image uploads (Add/Edit Product) ---------- */
+.admin-image-upload {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.admin-image-preview {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-sm);
+  background: var(--stone);
+  border: 1.5px dashed var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  overflow: hidden;
+}
+.admin-image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.admin-image-empty {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  padding: 0 8px;
+}
+.admin-image-upload-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.admin-file-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.admin-file-btn:hover {
+  border-color: var(--ink);
+  color: var(--text);
+}
+.admin-file-btn-inline {
+  margin-top: 10px;
+}
+.admin-gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.admin-gallery-grid:not(:empty) {
+  margin-bottom: 10px;
+}
+.admin-gallery-thumb {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+  flex: none;
+}
+.admin-gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.admin-gallery-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(11, 11, 12, 0.75);
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin-gallery-remove:hover {
+  background: var(--red-deep);
+}
+
+/* ---------- stock-per-size (Add/Edit Product) ---------- */
+.admin-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--red-deep, #b91c1c);
+}
+.admin-field-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.admin-stock-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+.admin-stock-grid:empty {
+  display: none;
+}
+.admin-stock-item {
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+.admin-stock-item label {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.admin-stock-item input {
+  width: 100%;
+  border: none;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  background: transparent;
+}
+.admin-stock-item input:focus {
+  outline: none;
+}
+.admin-stock-item.is-empty {
+  border-color: var(--red-deep, #b91c1c);
+  background: #fbe6e6;
+}
+
+/* ---------- offer banner cards (admin/offers.html) ---------- */
+.admin-offer-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  flex-wrap: wrap;
+}
+.admin-offer-card img {
+  width: 130px;
+  height: 82px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex: none;
+  background: var(--stone);
+}
+.admin-offer-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+.admin-offer-card-body input[type="text"] {
+  padding: 9px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-family: inherit;
+}
+.admin-offer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.admin-offer-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---------- login page ---------- */
+.admin-login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ink);
+  padding: 24px;
+}
+.admin-login-card {
+  width: 380px;
+  max-width: 100%;
+  background: var(--paper);
+  border-radius: var(--radius-lg);
+  padding: 38px 32px 32px;
+  box-shadow: var(--shadow-lift);
+}
+.admin-login-card .logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.admin-login-card .logo .mark-img {
+  height: 64px;
+  width: auto;
+  display: block;
+}
+.admin-login-card h2 {
+  font-family: var(--font-body);
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 22px;
+  font-weight: 700;
+}
+.admin-login-error {
+  background: #fbe6e6;
+  color: var(--red-deep);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  display: none;
+}
+.admin-login-error.show {
+  display: block;
+}
+.admin-login-hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 18px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .admin-sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    transition: left 0.25s ease;
+  }
+  .admin-sidebar.open {
+    left: 0;
+  }
+  .admin-main {
+    margin-left: 0;
+  }
+  .admin-sidebar-toggle {
+    display: flex;
+  }
+  .admin-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .admin-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-topbar {
+    padding: 14px 16px;
+  }
+  .admin-content {
+    padding: 18px 16px 50px;
+  }
+}
+
+@media (max-width: 520px) {
+  .admin-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-panel {
+    padding: 16px;
+  }
+}
+
+/* ===================================================
+   RESPONSIVE TABLES — mobile card layout
+   Below this width a <table> with many columns just makes
+   people scroll sideways to read the row they're already
+   looking at. Instead, turn every .admin-table row into its
+   own stacked card: each cell becomes a label/value line
+   (label comes from the td's data-label attribute), so all
+   the info for one product/order/admin/review is readable
+   top-to-bottom without any horizontal scrolling.
+=================================================== */
+@media (max-width: 760px) {
+  .admin-table-wrap {
+    overflow-x: visible;
+  }
+  .admin-table thead {
+    display: none;
+  }
+  .admin-table,
+  .admin-table tbody,
+  .admin-table tr,
+  .admin-table td {
+    display: block;
+    width: 100%;
+  }
+  .admin-table {
+    border: none;
+  }
+  .admin-table tr {
+    margin-bottom: 14px;
+    padding: 4px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--paper);
+  }
+  .admin-table tr:last-child {
+    margin-bottom: 0;
+  }
+  .admin-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    text-align: right;
+  }
+  .admin-table tr td:last-child {
+    border-bottom: none;
+  }
+  .admin-table td::before {
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-align: left;
+    flex-shrink: 0;
+  }
+  .admin-table td:empty::before {
+    content: none;
+  }
+  /* cells whose content is itself multi-line or block-shaped
+     (thumbnail+name, action buttons, stacked contact info) read
+     better stacked full-width under the label than squeezed
+     right-aligned next to it */
+  .admin-table td:has(.admin-cell-with-thumb),
+  .admin-table td:has(.admin-person),
+  .admin-table td:has(.admin-row-actions),
+  .admin-table td[data-label="Review"] {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+  }
+  .admin-table td:has(.admin-row-actions) {
+    padding-top: 12px;
+  }
+  .admin-table td .admin-row-actions {
+    justify-content: flex-end;
+  }
+  .admin-table td[data-label="Contact"],
+  .admin-table td:has(.admin-discount-tag) {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .admin-table td select {
+    max-width: 150px;
+  }
+  /* products table: stack the value blocks neatly on the right,
+     and let the size chips wrap inside the card instead of
+     spilling out past its edge */
+  .admin-table td > * {
+    min-width: 0;
+  }
+  .admin-price-stack {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 4px 12px;
+  }
+  .admin-tag-stack {
+    align-items: flex-end;
+  }
+  .admin-table td[data-label="Sizes"] {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    gap: 8px;
+  }
+}
+
+/* Admin's own profile modal (see openAdminProfileModal in
+   admin-auth.js) — opened from the sidebar avatar/name. */
+.admin-profile-modal {
+  max-width: 420px;
+  position: relative;
+  text-align: left;
+}
+.admin-profile-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: var(--stone);
+  color: var(--text-2);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+.admin-profile-modal-close:hover {
+  background: var(--line);
+  color: var(--ink);
+}
+.admin-profile-modal-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.admin-profile-modal-avatar {
+  width: 64px;
+  height: 64px;
+  font-size: 22px;
+  flex: none;
+}
+.admin-profile-modal-avatar::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--paper);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z'/><circle cx='12' cy='13' r='4'/></svg>");
+  background-size: 11px;
+  background-repeat: no-repeat;
+  background-position: center;
+}

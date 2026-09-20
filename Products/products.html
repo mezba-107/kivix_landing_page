@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/assets/logo-full-light.png" />
+    <title>Our Collection — KI-VIX Sneakers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/Products/products.css" />
+    <link rel="stylesheet" href="/loading.css" />
+  </head>
+  <body>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>All Over Bangladesh Delivery</span>
+        <span>Cash On Delivery</span>
+        <span>Premium Quality Sneakers</span>
+        <span>Cash on Delivery Available</span>
+        <span>Trusted Shopping</span>
+        <span>Best Price</span>
+        <span>All Over Bangladesh Delivery</span>
+        <span>Cash On Delivery</span>
+        <span>Premium Quality Sneakers</span>
+        <span>Cash on Delivery Available</span>
+        <span>Trusted Shopping</span>
+        <span>Best Price</span>
+      </div>
+    </div>
+    <header class="site-header">
+      <div class="container">
+        <a href="/index.html" class="logo">
+          <img
+            src="/assets/logo-full-light.png"
+            alt="KI-VIX"
+            class="mark-img"
+          />
+          <span class="sub">SNEAKERS</span>
+        </a>
+
+        <nav class="main-nav">
+          <a href="/index.html">Home</a>
+          <a href="/Products/products.html" class="active">Collection</a>
+          <a href="/Products/products.html#offers">Offers</a>
+          <a href="/index.html#reviews">Reviews</a>
+          <a href="/index.html#about">About Us</a>
+          <span class="nav-contact" data-contact-menu
+            ><a href="/index.html#contact" data-contact-toggle>Contact</a></span
+          >
+        </nav>
+
+        <div class="header-actions">
+          <button class="icon-btn" aria-label="Search" data-search-toggle>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <circle cx="11" cy="11" r="7" />
+              <path d="M21 21l-4.3-4.3" />
+            </svg>
+          </button>
+          <button
+            class="icon-btn"
+            type="button"
+            aria-label="Wishlist"
+            data-wishlist-toggle-drawer
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"
+              /></svg
+            ><span class="cart-badge" data-wishlist-count>0</span>
+          </button>
+          <button
+            class="icon-btn"
+            type="button"
+            aria-label="Cart"
+            data-cart-toggle
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="9" cy="21" r="1.4" />
+              <circle cx="18" cy="21" r="1.4" />
+              <path
+                d="M2 3h2l2.6 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L21 7H6"
+              /></svg
+            ><span class="cart-badge" data-cart-count>0</span>
+          </button>
+          <div class="profile-menu" data-profile-menu>
+            <button
+              class="icon-btn"
+              type="button"
+              aria-label="Account"
+              data-profile-toggle
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+              </svg>
+            </button>
+            <div class="profile-dropdown" data-profile-dropdown hidden>
+              <button type="button" data-profile-login>Login</button>
+              <button type="button" data-profile-signup>Create Account</button>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="/Checkout/checkout.html"
+            >Order Now</a
+          >
+          <button class="nav-toggle" aria-label="Menu">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <section class="collection-hero">
+      <div class="container">
+        <p class="eyebrow">Full Range</p>
+        <h1>Our Collection</h1>
+        <p class="subtitle">
+          Every sneaker we carry, from everyday classics to limited offers.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="offers">
+      <div class="container">
+        <div class="filter-row" data-filters>
+          <button class="filter-chip active" data-filter="all">All</button>
+          <button class="filter-chip" data-filter="offers">Offers</button>
+          <button class="filter-chip" data-filter="Nike">Nike</button>
+          <button class="filter-chip" data-filter="Jordan">Jordan</button>
+          <button class="filter-chip" data-filter="Adidas">Adidas</button>
+          <button class="filter-chip" data-filter="New Balance">
+            New Balance
+          </button>
+          <button class="filter-chip" data-filter="Puma">Puma</button>
+        </div>
+        <p class="result-count small" data-result-count></p>
+        <div class="product-grid" data-grid></div>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="contact">
+      <div class="container">
+        <div class="footer-top">
+          <div>
+            <h4>KI-VIX Sneakers</h4>
+            <p>
+              Stylish, comfortable and durable sneakers, delivered all over
+              Bangladesh with cash on delivery.
+            </p>
+          </div>
+          <div>
+            <h4>Shop</h4>
+            <div class="footer-links">
+              <a href="/Products/products.html">All Sneakers</a>
+              <a href="/Products/products.html#offers">Offers</a>
+              <a href="/index.html">New Arrivals</a>
+            </div>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <div class="footer-links">
+              <a href="/index.html#about">About Us</a>
+              <a href="/index.html#reviews">Reviews</a>
+              <span class="nav-contact footer-contact" data-contact-menu
+                ><a href="/index.html#contact" data-contact-toggle
+                  >Contact</a
+                ></span
+              >
+            </div>
+          </div>
+          <div>
+            <h4>Support</h4>
+            <div class="footer-links">
+              <a href="#">Delivery Info</a>
+              <a href="#">Returns Policy</a>
+              <a href="#">FAQs</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 KI-VIX Sneakers. All rights reserved.</span>
+          <span>Made for every step you take.</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/loading.js"></script>
+    <script src="/data.js"></script>
+    <script src="/offer-timer-bar.js"></script>
+    <script src="/cart.js"></script>
+    <script src="/header.js"></script>
+    <script src="/auth.js"></script>
+    <script src="/Products/products.js"></script>
+    <script src="/animate.js"></script>
+  </body>
+</html>

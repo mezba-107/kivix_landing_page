@@ -1,0 +1,74 @@
+/* ===================================================
+   KI-VIX — global loading overlay
+   Shown automatically whenever an API request (see
+   apiRequest() in data.js) is in flight. Injected once
+   by loading.js on every page that includes it.
+=================================================== */
+
+#kivix-loading-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s var(--ease, ease),
+    visibility 0s linear 0.2s;
+}
+
+#kivix-loading-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.2s var(--ease, ease),
+    visibility 0s linear 0s;
+}
+
+#kivix-loading-overlay .kivix-loading-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  transform: translateY(6px);
+  transition: transform 0.25s var(--ease, ease);
+}
+
+#kivix-loading-overlay.is-visible .kivix-loading-box {
+  transform: translateY(0);
+}
+
+#kivix-loading-overlay .kivix-spinner {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid var(--line, #e8e6e2);
+  border-top-color: var(--red, #e30613);
+  animation: kivix-spin 0.75s linear infinite;
+}
+
+#kivix-loading-overlay .kivix-loading-text {
+  font-family: var(--font-body, "Poppins", system-ui, sans-serif);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-2, #5b5751);
+}
+
+@keyframes kivix-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #kivix-loading-overlay .kivix-spinner {
+    animation-duration: 1.4s;
+  }
+}
