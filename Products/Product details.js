@@ -716,7 +716,9 @@ function renderReviewsSection(productId) {
   }
 
   function mountRelated() {
-    const related = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 3);
+    const related = shuffleArray(
+      PRODUCTS.filter((p) => p.id !== product.id),
+    ).slice(0, 3);
     renderGrid("[data-related]", related);
   }
 

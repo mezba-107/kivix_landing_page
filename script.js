@@ -433,18 +433,14 @@ function initHeroSlideshow() {
     startAuto();
   }
 
-  mount
-    .querySelector(".hero-slide-nav.next")
-    ?.addEventListener("click", () => {
-      next();
-      startAuto();
-    });
-  mount
-    .querySelector(".hero-slide-nav.prev")
-    ?.addEventListener("click", () => {
-      prev();
-      startAuto();
-    });
+  mount.querySelector(".hero-slide-nav.next")?.addEventListener("click", () => {
+    next();
+    startAuto();
+  });
+  mount.querySelector(".hero-slide-nav.prev")?.addEventListener("click", () => {
+    prev();
+    startAuto();
+  });
   dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
 
   // swipe support (touch + mouse drag) on the stage
@@ -462,10 +458,16 @@ function initHeroSlideshow() {
     }
     startAuto();
   };
-  stage.addEventListener("touchstart", (e) => onDragStart(e.touches[0].clientX), {
-    passive: true,
-  });
-  stage.addEventListener("touchend", (e) => onDragEnd(e.changedTouches[0].clientX));
+  stage.addEventListener(
+    "touchstart",
+    (e) => onDragStart(e.touches[0].clientX),
+    {
+      passive: true,
+    },
+  );
+  stage.addEventListener("touchend", (e) =>
+    onDragEnd(e.changedTouches[0].clientX),
+  );
 
   // Mouse drag: listen for mouseup on the whole document, not just the
   // stage. The photo can otherwise trigger the browser's native
@@ -521,7 +523,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   initNavToggle();
 
-  renderGrid("[data-grid]", PRODUCTS.slice(0, 6));
+  renderGrid(
+    "[data-grid]",
+    shuffleArray(PRODUCTS.filter((p) => !isProductOutOfStock(p))).slice(0, 6),
+  );
   initHeroSlideshow();
   initCarousel();
   await renderReviews();

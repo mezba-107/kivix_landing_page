@@ -269,6 +269,17 @@ function firstAvailableSize(product) {
   const available = sizes.find((s) => !isSizeOutOfStock(product, s));
   return available !== undefined ? available : product.defaultSize;
 }
+/* Fisher–Yates shuffle — returns a new array, never mutates the input.
+   Used to randomize the homepage's "Our Collection" picks and the
+   product page's "You may also like" row on every page load. */
+function shuffleArray(list) {
+  const arr = [...list];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
 /* Stock is only ever adjusted server-side now (when an order is
    Approved/Cancelled/deleted) — reload the product/list to see fresh
    numbers after an order status change. */

@@ -169,9 +169,23 @@
             New Balance
           </button>
           <button class="filter-chip" data-filter="Puma">Puma</button>
+          <select
+            class="price-filter-select"
+            data-price-filter
+            aria-label="Sort by price"
+          >
+            <option value="default">Sort by Price</option>
+            <option value="low-high">Price: Low to High</option>
+            <option value="high-low">Price: High to Low</option>
+          </select>
         </div>
         <p class="result-count small" data-result-count></p>
         <div class="product-grid" data-grid></div>
+        <div class="view-more-row" data-view-more-row hidden>
+          <button type="button" class="btn btn-secondary" data-view-more>
+            View More
+          </button>
+        </div>
       </div>
     </section>
 

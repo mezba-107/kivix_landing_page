@@ -62,14 +62,15 @@ function productCardHTML(p) {
     </a>`;
 }
 
-function renderGrid(targetSelector, list) {
+function renderGrid(targetSelector, list, totalMatching) {
   const el = document.querySelector(targetSelector);
   if (!el) return;
   el.innerHTML = list.map((p) => productCardHTML(p)).join("");
 
   const countEl = document.querySelector("[data-result-count]");
   if (countEl) {
-    countEl.textContent = `Showing ${list.length} of ${PRODUCTS.length} sneakers`;
+    const total = totalMatching !== undefined ? totalMatching : PRODUCTS.length;
+    countEl.textContent = `Showing ${list.length} of ${total} sneakers`;
   }
 }
 
@@ -89,11 +90,54 @@ function initNavToggle() {
   });
 }
 
-/* ---------- category filter ---------- */
+/* ---------- category + price filter, out-of-stock-last sort, pagination ---------- */
+const PAGE_SIZE = 9;
+let visibleCount = PAGE_SIZE;
+let currentCategoryFilter = "all";
+let currentPriceSort = "default";
+
 function filterProducts(f) {
   if (f === "all") return PRODUCTS;
   if (f === "offers") return PRODUCTS.filter((p) => p.discount);
   return PRODUCTS.filter((p) => p.brand === f);
+}
+
+function sortByPrice(list, mode) {
+  if (mode === "low-high") return [...list].sort((a, b) => a.price - b.price);
+  if (mode === "high-low") return [...list].sort((a, b) => b.price - a.price);
+  return list;
+}
+
+// Out-of-stock items always sink to the end of the grid, whatever
+// category filter or price sort is active — applied last so it wins
+// over (but doesn't undo) the price ordering above, since Array.sort
+// is stable in every modern browser.
+function sortOutOfStockLast(list) {
+  return [...list].sort(
+    (a, b) => Number(isProductOutOfStock(a)) - Number(isProductOutOfStock(b)),
+  );
+}
+
+function getFilteredSortedList() {
+  const byCategory = filterProducts(currentCategoryFilter);
+  const priceSorted = sortByPrice(byCategory, currentPriceSort);
+  return sortOutOfStockLast(priceSorted);
+}
+
+// Re-renders the grid from current filter/price/pagination state —
+// call this instead of renderGrid directly whenever any of those change.
+function renderProductsPage() {
+  const fullList = getFilteredSortedList();
+  const visible = fullList.slice(0, visibleCount);
+  renderGrid("[data-grid]", visible, fullList.length);
+
+  const viewMoreRow = document.querySelector("[data-view-more-row]");
+  const viewMoreBtn = document.querySelector("[data-view-more]");
+  if (viewMoreRow) viewMoreRow.hidden = fullList.length <= PAGE_SIZE;
+  if (viewMoreBtn) {
+    viewMoreBtn.textContent =
+      visibleCount >= fullList.length ? "View Less" : "View More";
+  }
 }
 
 function applyFilter(filterValue) {
@@ -105,7 +149,9 @@ function applyFilter(filterValue) {
     .querySelectorAll("[data-filters] .filter-chip")
     .forEach((c) => c.classList.remove("active"));
   chip.classList.add("active");
-  renderGrid("[data-grid]", filterProducts(filterValue));
+  currentCategoryFilter = filterValue;
+  visibleCount = PAGE_SIZE;
+  renderProductsPage();
 }
 
 function initFilters() {
@@ -121,11 +167,42 @@ function initFilters() {
   }
 }
 
+function initPriceFilter() {
+  const select = document.querySelector("[data-price-filter]");
+  if (!select) return;
+  select.addEventListener("change", () => {
+    currentPriceSort = select.value;
+    visibleCount = PAGE_SIZE;
+    renderProductsPage();
+  });
+}
+
+function initViewMore() {
+  const btn = document.querySelector("[data-view-more]");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const fullList = getFilteredSortedList();
+    if (visibleCount >= fullList.length) {
+      // everything's already showing — collapse back to the first page
+      visibleCount = PAGE_SIZE;
+      renderProductsPage();
+      document
+        .querySelector("[data-grid]")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      visibleCount += PAGE_SIZE;
+      renderProductsPage();
+    }
+  });
+}
+
 /* ---------- products page bootstrap ---------- */
 document.addEventListener("DOMContentLoaded", async () => {
   await KIVIX_READY;
   initNavToggle();
 
-  renderGrid("[data-grid]", PRODUCTS);
+  renderProductsPage();
   initFilters();
+  initPriceFilter();
+  initViewMore();
 });
